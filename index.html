@@ -29,7 +29,7 @@
         font-size: 1.1rem;
         margin-bottom: 8px;
       }
-      input {
+      input, textarea {
         background: #222;
         color: white;
         border: 2px solid orangered;
@@ -42,13 +42,25 @@
         max-width: 280px;
         margin-bottom: 15px;
         box-sizing: border-box;
+        font-family: sans-serif;
       }
-      input::placeholder {
+      textarea {
+        resize: vertical;
+        min-height: 80px;
+      }
+      input::placeholder, textarea::placeholder {
         color: #888;
       }
-      input:focus {
+      input:focus, textarea:focus {
         border-color: #ff5722;
         box-shadow: 0 0 8px rgba(255, 87, 34, 0.6);
+      }
+      input:disabled, textarea:disabled {
+        border-color: green !important;
+        background: #112211 !important;
+        color: #88ff88 !important;
+        cursor: not-allowed;
+        opacity: 1;
       }
       button {
         background: orangered;
@@ -78,12 +90,52 @@
     <h1>謎とき解答欄</h1>
     <p>問１</p>
     <input type="text" id="no1" placeholder="答えを入力">
-    <p>問２</p>
-    <input type="text" id="no2" placeholder="答えを入力">
+    <p>問２<br>（左側から改行、スペースなしで）</p>
+    <textarea id="no2" placeholder="答えを入力"></textarea>    
     <p>問３</p>
     <input type="text" id="no3" placeholder="答えを入力">
     <p>問４</p>
     <input type="text" id="no4" placeholder="答えを入力">
     <button>送信</button>
+    <script>
+      let a1 = "世界";
+      let a2 = "そにっくしてぃまえしんこくどうきりひきがわさくらぎよんちょうめかみこちょうにしかみこちょうなかなみきなみきこうえんみはしにちょうめ";
+      let a3 = "正";
+      let a4 = "モイス";
+
+      function submit() {
+        let questions = [
+          { id: 'no1', ans: a1 },
+          { id: 'no2', ans: a2, isTextarea: true },
+          { id: 'no3', ans: a3 },
+          { id: 'no4', ans: a4 }
+        ];
+
+        questions.forEach(q => {
+          let elem = document.getElementById(q.id);
+          if (elem.disabled) return;
+
+          // textareaの場合は意図しない改行コードを取り除く処理を入れると安全です
+          let val = elem.value;
+          if (q.isTextarea) {
+            val = val.replace(/\r?\n/g, "");
+          }
+
+          if (val === q.ans && q.ans !== "") {
+            elem.disabled = true;
+          }
+        });
+
+        let allCleared = questions.every(q => document.getElementById(q.id).disabled);
+        if (allCleared) {
+          alert('すべての謎をクリアしました！おめでとうございます！');
+        }
+      }
+
+      const submitButton = document.querySelector('button');
+      submitButton.addEventListener('click', () => {
+        submit();
+      });
+    </script>
   </body>
 </html>
