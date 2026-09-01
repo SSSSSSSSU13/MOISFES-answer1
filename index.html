@@ -2,6 +2,7 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>謎とき解答欄</title>
     <style>
       body {
@@ -12,31 +13,35 @@
         align-items: center;
         justify-content: center;
         margin: 0;
-        padding: 40px 0;
+        padding: 30px 20px;
         min-height: 100vh;
+        box-sizing: border-box;
       }
       h1 {
         color: orangered;
         text-align: center;
+        font-size: 1.8rem;
         margin-bottom: 20px;
       }
       p {
         color: white;
         text-align: center;
-        font-size: 1.2rem;
-        margin-bottom: 10px;
+        font-size: 1.1rem;
+        margin-bottom: 8px;
       }
       input {
         background: #222;
         color: white;
         border: 2px solid orangered;
-        padding: 10px 15px;
+        padding: 12px 15px;
         font-size: 1rem;
         text-align: center;
         border-radius: 5px;
         outline: none;
-        width: 250px;
+        width: 100%;
+        max-width: 280px;
         margin-bottom: 15px;
+        box-sizing: border-box;
       }
       input::placeholder {
         color: #888;
@@ -49,13 +54,16 @@
         background: orangered;
         color: white;
         border: none;
-        padding: 12px 30px;
+        padding: 14px 0;
         font-size: 1.1rem;
         font-weight: bold;
         border-radius: 5px;
         cursor: pointer;
-        margin-top: 15px;
+        margin-top: 10px;
+        width: 100%;
+        max-width: 280px;
         transition: background 0.2s, box-shadow 0.2s;
+        box-sizing: border-box;
       }
       button:hover {
         background: #ff5722;
