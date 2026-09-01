@@ -84,19 +84,42 @@
       button:active {
         transform: scale(0.98);
       }
+      #clear-message {
+        display: none;
+        text-align: center;
+        margin-top: 20px;
+      }
+      #clear-message h2 {
+        color: #88ff88;
+        font-size: 2rem;
+        margin: 0 0 10px 0;
+      }
+      #clear-message p {
+        color: #ccc;
+        font-size: 0.9rem;
+        margin: 0;
+      }
     </style>
   </head>
   <body>
     <h1>謎とき解答欄</h1>
-    <p>問１</p>
-    <input type="text" id="no1" placeholder="答えを入力">
-    <p>問２<br>（左側から改行、スペースなしで）</p>
-    <textarea id="no2" placeholder="答えを入力"></textarea>    
-    <p>問３</p>
-    <input type="text" id="no3" placeholder="答えを入力">
-    <p>問４</p>
-    <input type="text" id="no4" placeholder="答えを入力">
-    <button>送信</button>
+    <div id="quiz-container">
+      <p>問１</p>
+      <input type="text" id="no1" placeholder="答えを入力">
+      <p>問２<br>（左側から改行、スペースなしで）</p>
+      <textarea id="no2" placeholder="答えを入力"></textarea>    
+      <p>問３</p>
+      <input type="text" id="no3" placeholder="答えを入力">
+      <p>問４</p>
+      <input type="text" id="no4" placeholder="答えを入力">
+      <button>送信</button>
+    </div>
+
+    <div id="clear-message">
+      <h2>全問正解！！</h2>
+      <p>この写真をteamsで[IshiiHiromu]におくってください</p>
+    </div>
+
     <script>
       let a1 = "世界";
       let a2 = "そにっくしてぃまえしんこくどうきりひきがわさくらぎよんちょうめかみこちょうにしかみこちょうなかなみきなみきこうえんみはしにちょうめ";
@@ -115,7 +138,6 @@
           let elem = document.getElementById(q.id);
           if (elem.disabled) return;
 
-          // textareaの場合は意図しない改行コードを取り除く処理を入れると安全です
           let val = elem.value;
           if (q.isTextarea) {
             val = val.replace(/\r?\n/g, "");
@@ -128,7 +150,8 @@
 
         let allCleared = questions.every(q => document.getElementById(q.id).disabled);
         if (allCleared) {
-          alert('すべての謎をクリアしました！おめでとうございます！');
+          document.getElementById('quiz-container').style.display = 'none';
+          document.getElementById('clear-message').style.display = 'block';
         }
       }
 
